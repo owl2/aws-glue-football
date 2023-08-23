@@ -21,3 +21,15 @@ resource "aws_s3_object" "br_football_mx" {
   # etag = "${md5(file("path/to/file"))}"
   etag = filemd5(local.br_football_mx)
 }
+
+resource "aws_s3_object" "br_api_jsonplaceholder" {
+  bucket = aws_s3_bucket.aws_glue_lmu_tester.bucket
+  key    = "scripts/bronze/br_api_jsonplaceholder.py"
+  source = local.br_api_jsonplaceholder
+  force_destroy = true
+
+  # The filemd5() function is available in Terraform 0.11.12 and later
+  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:
+  # etag = "${md5(file("path/to/file"))}"
+  etag = filemd5(local.br_api_jsonplaceholder)
+}
